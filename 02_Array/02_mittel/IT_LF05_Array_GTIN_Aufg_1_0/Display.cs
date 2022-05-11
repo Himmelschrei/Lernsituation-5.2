@@ -10,10 +10,6 @@ namespace IT_LF05_Array_GTIN_Aufg_1_0
         {
             myCalculation = new Calculation(this);
         }
-
-        //int[] myCode = new int[13];
-
-        //string myInput;
         
         public void Input()
         {
@@ -27,7 +23,6 @@ namespace IT_LF05_Array_GTIN_Aufg_1_0
             Console.WriteLine();
             Console.Write("Geben Sie die 12-stellige Artikelnummer ein : ");
             string input = Console.ReadLine();
-            //myInput = Console.ReadLine();
             Console.Write("Die Prüfziffer lautet\t\t: {0}", myCalculation.TestDigit(input));
         }
     }
