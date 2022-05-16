@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace IT_LF05_Array_ISBN_Aufg_1_0
+namespace IT_LF05_Array_LUHN_Aufg_1_0
 {
     class Program
     {
