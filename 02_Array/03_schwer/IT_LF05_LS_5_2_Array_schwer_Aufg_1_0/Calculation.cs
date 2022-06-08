@@ -14,7 +14,6 @@ namespace IT_LF05_LS_5_2_Array_schwer_Aufg_1_0
         public string[,] BuildShips(string[,] array)
         {
             array = CheckShip(array, 5);
-            array[x, y] = "x";
 
             return array;
         }
@@ -25,18 +24,31 @@ namespace IT_LF05_LS_5_2_Array_schwer_Aufg_1_0
             int x = random.Next(1, 21);
             int y = random.Next(1, 21);
 
-            array[x, y] = "x";
+            if (array[y,x] == "X")
+            {
+                CheckShip(array, length);
+            }
+
+            array[y, x] = "X";
+            Console.WriteLine("Start position is x = {0}, y = {1}", x, y);
 
             // 0 = Nord, 1 = Ost, 2 = Süd, 3 = West
-            string[] orientations = new string[] {0, 1, 2, 3};
+            int[] orientations = new int[] {0, 1, 2, 3};
             int o = random.Next(0, 4);
+            Console.WriteLine("{0}", o);
 
             orientations = Move(orientations, o);
+            for (int i = 0; i < orientations.Length; i++)
+            {
+                Console.Write("{0} ", orientations[i]);
+            }
+            Console.WriteLine();
 
             bool b = false;
             for (int i = 0; i < orientations.Length - 1; i++)
             {
-                if (Placement(array, i, length, x, y))
+                Console.WriteLine("Iteration number: {0}", i+1);
+                if (Placement(array, orientations[i], length, x, y))
                 {
                     b = true;
                     break;
@@ -46,20 +58,20 @@ namespace IT_LF05_LS_5_2_Array_schwer_Aufg_1_0
             if (b == false)
             {
                 CheckShip(array, length);
-            } else {
-                return array;
-            }
+            } 
+
+            return array;
         }
 
         public void DrawField()
         {
             string[,] array = FillField();
 
-            for (int i = 0; i < array.GetLength(0); i++)
+            for (int x = 0; x < array.GetLength(0); x++)
             {
-                for (int j = 0; j < array.GetLength(1); j++)
+                for (int y = 0; y < array.GetLength(1); y++)
                 {
-                    Console.Write("|" + array[i, j]);
+                    Console.Write("|" + array[x, y]);
                 }
                 Console.WriteLine("|");
             }
@@ -73,15 +85,15 @@ namespace IT_LF05_LS_5_2_Array_schwer_Aufg_1_0
             //1 Columns
 
             for (int i = 0; i < array.GetLength(0); i++)
-            {
-                array[0, i] = "#";
-                array[array.GetLength(0) - 1, i] = "#";
+            {                                
+                array[i, 0] = "#";
+                array[i, array.GetLength(1) - 1] = "#";
             }
 
             for (int i = 0; i < array.GetLength(1); i++)
-            {                
-                array[i, 0] = "#";
-                array[i, array.GetLength(1) - 1] = "#";
+            {
+                array[0, i] = "#";
+                array[array.GetLength(0) - 1, i] = "#";
             }
 
             return array;
@@ -97,18 +109,18 @@ namespace IT_LF05_LS_5_2_Array_schwer_Aufg_1_0
 
         public string[,] FillWater(string[,] array)
         {
-            for (int i = 1; i < array.GetLength(0) - 1; i++)
+            for (int x = 1; x < array.GetLength(0) - 1; x++)
             {
-                for (int j = 1; j < array.GetLength(1) - 1; j++)
+                for (int y = 1; y < array.GetLength(1) - 1; y++)
                 {
-                    array[i,j] = " ";
+                    array[y,x] = " ";
                 }
             }
 
             return array;
         }
 
-        public void Move(int[] arr, int x)
+        public int[] Move(int[] arr, int x)
         {
             int temp;
 
@@ -127,13 +139,14 @@ namespace IT_LF05_LS_5_2_Array_schwer_Aufg_1_0
 
         public bool Placement(string[,] array, int orientation, int length, int x, int y)
         {
+            Console.WriteLine("Orientation Value: {0}", orientation);
             string[,] backup = array;
             bool b = false; 
 
             switch(orientation)
             {
                 case 0: 
-                    for (int i = 1; i < length - 1; i++)
+                    /**for (int i = 1; i < length; i++)
                     {
                         if(array[x,y-i] == " " & y-i >= 0)
                         {
@@ -141,15 +154,111 @@ namespace IT_LF05_LS_5_2_Array_schwer_Aufg_1_0
                             b = true;
                         } else {
                             b = false;
+                            array = backup;
                             break;
+                        }
+                    }*/
+                    Console.WriteLine("North");
+                    for (int i = 1; i < length; i++)
+                    {
+                        if (array[y-i,x] != " ")
+                        {
+                            b = false;
+                            array = backup;
+                            break;
+                        } else {
+                            array[y-i,x] = "X";
+                            b = true;
                         }
                     }
                     break;
                 case 1:
-                    for (int i = 0; i < length - 1; i++)
+                    Console.WriteLine("East");
+                    for (int i = 1; i < length; i++)
                     {
-
+                        if (array[y,x+i] != " ")
+                        {
+                            b = false;
+                            array = backup;
+                            break;
+                        } else {
+                            array[y,x+i] = "X";
+                            b = true;
+                        }
                     }
+                    break;
+                case 2:
+                    Console.WriteLine("South");
+                    for (int i = 1; i < length; i++)
+                    {
+                        if (array[y+i,x] != " ")
+                        {
+                            b = false;
+                            array = backup;
+                            break;
+                        } else {
+                            array[y+i,x] = "X";
+                            b = true;
+                        }
+                    }
+                    break;
+                case 3:
+                    Console.WriteLine("West");
+                    for (int i = 1; i < length; i++)
+                    {
+                        if (array[y,x-i] != " ")
+                        {
+                            b =false;
+                            array = backup;
+                            break;
+                        } else {
+                            array[y,x-i] = "X";
+                            b = true;
+                        }
+                    }
+                    break;
+                /**case 1:
+                    for (int i = 1; i < length; i++)
+                    {
+                        if (array[x+i,y] == " " & x+i <= 21)
+                        {
+                            array[x+i,y] = "X";
+                            b = true;
+                        } else {
+                            b = false;
+                            array = backup;
+                            break;
+                        }
+                    }
+                    break;
+                case 2:
+                    for (int i = 1; i < length; i++)
+                    {
+                        if (array[x,y+i] == " " & y+i <= 21)
+                        {
+                            array[x,y+i] = "X";
+                            b = true;
+                        } else {
+                            b = false;
+                            array = backup;
+                            break;
+                        }
+                    }
+                    break;
+                case 3:
+                    for (int i = 1; i < length; i++)
+                    {
+                        if (array[x-i,y] == " " & x-i >= 0)
+                        {
+                            array[x-i,y] = "X";
+                            b = true;
+                        } else {
+                            b = false;
+                            array = backup;
+                            break;
+                        }
+                    }
+                    break; */
             }
 
             return b;
