@@ -19,7 +19,7 @@ namespace IT_LF05_LS_5_2_Array_schwer_Aufg_1_0
             return array;
         }
 
-        public void CheckShip(string[,] array, int i)
+        public string[,] CheckShip(string[,] array, int length)
         {
             Random random = new Random();
             int x = random.Next(1, 21);
@@ -33,12 +33,21 @@ namespace IT_LF05_LS_5_2_Array_schwer_Aufg_1_0
 
             orientations = Move(orientations, o);
 
+            bool b = false;
             for (int i = 0; i < orientations.Length - 1; i++)
             {
-                if (Placement())
+                if (Placement(array, i, length, x, y))
                 {
-                    
+                    b = true;
+                    break;
                 }
+            }
+
+            if (b == false)
+            {
+                CheckShip(array, length);
+            } else {
+                return array;
             }
         }
 
@@ -114,6 +123,36 @@ namespace IT_LF05_LS_5_2_Array_schwer_Aufg_1_0
             }
 
             return arr;
+        }
+
+        public bool Placement(string[,] array, int orientation, int length, int x, int y)
+        {
+            string[,] backup = array;
+            bool b = false; 
+
+            switch(orientation)
+            {
+                case 0: 
+                    for (int i = 1; i < length - 1; i++)
+                    {
+                        if(array[x,y-i] == " " & y-i >= 0)
+                        {
+                            array[x,y-i] = "X";
+                            b = true;
+                        } else {
+                            b = false;
+                            break;
+                        }
+                    }
+                    break;
+                case 1:
+                    for (int i = 0; i < length - 1; i++)
+                    {
+
+                    }
+            }
+
+            return b;
         }
 
         public void WriteColor(ConsoleColor color, string text)
