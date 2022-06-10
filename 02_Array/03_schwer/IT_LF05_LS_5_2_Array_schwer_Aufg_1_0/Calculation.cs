@@ -80,7 +80,13 @@ namespace IT_LF05_LS_5_2_Array_schwer_Aufg_1_0
             {
                 for (int x = 0; x < array.GetLength(1); x++)
                 {
-                    Console.Write("|" + array[x, y]);
+                    Console.Write("|");
+                    if (array[x,y] == "X")
+                    {
+                        WriteColor(ConsoleColor.Red, "X");
+                    } else {
+                        Console.Write(array[x,y]);
+                    }
                 }
                 Console.WriteLine("|");
             }
