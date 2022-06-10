@@ -14,6 +14,15 @@ namespace IT_LF05_LS_5_2_Array_schwer_Aufg_1_0
         public string[,] BuildShips(string[,] array)
         {
             array = CheckShip(array, 5);
+            array = CheckShip(array, 4);
+            array = CheckShip(array, 4);
+            array = CheckShip(array, 3);
+            array = CheckShip(array, 3);
+            array = CheckShip(array, 3);
+            array = CheckShip(array, 2);
+            array = CheckShip(array, 2);
+            array = CheckShip(array, 2);
+            array = CheckShip(array, 2);
 
             return array;
         }
@@ -140,7 +149,8 @@ namespace IT_LF05_LS_5_2_Array_schwer_Aufg_1_0
         public bool Placement(string[,] array, int orientation, int length, int x, int y)
         {
             Console.WriteLine("Orientation Value: {0}", orientation);
-            string[,] backup = array;
+            string[,] backup = (string[,]) array.Clone();
+
             bool b = false; 
 
             switch(orientation)
@@ -164,7 +174,7 @@ namespace IT_LF05_LS_5_2_Array_schwer_Aufg_1_0
                         if (array[y-i,x] != " ")
                         {
                             b = false;
-                            array = backup;
+                            Array.Copy(backup, 0, array, 0, array.Length);
                             break;
                         } else {
                             array[y-i,x] = "X";
@@ -179,7 +189,7 @@ namespace IT_LF05_LS_5_2_Array_schwer_Aufg_1_0
                         if (array[y,x+i] != " ")
                         {
                             b = false;
-                            array = backup;
+                            Array.Copy(backup, 0, array, 0, array.Length);
                             break;
                         } else {
                             array[y,x+i] = "X";
@@ -194,7 +204,7 @@ namespace IT_LF05_LS_5_2_Array_schwer_Aufg_1_0
                         if (array[y+i,x] != " ")
                         {
                             b = false;
-                            array = backup;
+                            Array.Copy(backup, 0, array, 0, array.Length);
                             break;
                         } else {
                             array[y+i,x] = "X";
@@ -209,7 +219,7 @@ namespace IT_LF05_LS_5_2_Array_schwer_Aufg_1_0
                         if (array[y,x-i] != " ")
                         {
                             b =false;
-                            array = backup;
+                            Array.Copy(backup, 0, array, 0, array.Length);
                             break;
                         } else {
                             array[y,x-i] = "X";
