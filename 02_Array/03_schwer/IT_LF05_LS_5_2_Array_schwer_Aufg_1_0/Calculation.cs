@@ -39,24 +39,16 @@ namespace IT_LF05_LS_5_2_Array_schwer_Aufg_1_0
             }
 
             array[x, y] = "X";
-            Console.WriteLine("Start position is x = {0}, y = {1}", x, y);
 
             // 0 = Nord, 1 = Ost, 2 = Süd, 3 = West
             int[] orientations = new int[] {0, 1, 2, 3};
             int o = random.Next(0, 4);
-            Console.WriteLine("{0}", o);
 
             orientations = Move(orientations, o);
-            for (int i = 0; i < orientations.Length; i++)
-            {
-                Console.Write("{0} ", orientations[i]);
-            }
-            Console.WriteLine();
 
             bool b = false;
             for (int i = 0; i < orientations.Length - 1; i++)
             {
-                Console.WriteLine("Iteration number: {0}", i+1);
                 if (Placement(array, orientations[i], length, x, y))
                 {
                     b = true;
@@ -154,7 +146,6 @@ namespace IT_LF05_LS_5_2_Array_schwer_Aufg_1_0
 
         public bool Placement(string[,] array, int orientation, int length, int x, int y)
         {
-            Console.WriteLine("Orientation Value: {0}", orientation);
             string[,] backup = (string[,]) array.Clone();
 
             bool b = false; 
@@ -162,7 +153,6 @@ namespace IT_LF05_LS_5_2_Array_schwer_Aufg_1_0
             switch(orientation)
             {
                 case 0:
-                    Console.WriteLine("North");
                     for (int i = 1; i < length; i++)
                     {
                         if (array[x,y-i] != " ")
@@ -177,7 +167,6 @@ namespace IT_LF05_LS_5_2_Array_schwer_Aufg_1_0
                     }
                     break;
                 case 1:
-                    Console.WriteLine("East");
                     for (int i = 1; i < length; i++)
                     {
                         if (array[x+i,y] != " ")
@@ -192,7 +181,6 @@ namespace IT_LF05_LS_5_2_Array_schwer_Aufg_1_0
                     }
                     break;
                 case 2:
-                    Console.WriteLine("South");
                     for (int i = 1; i < length; i++)
                     {
                         if (array[x,y+i] != " ")
@@ -207,7 +195,6 @@ namespace IT_LF05_LS_5_2_Array_schwer_Aufg_1_0
                     }
                     break;
                 case 3:
-                    Console.WriteLine("West");
                     for (int i = 1; i < length; i++)
                     {
                         if (array[x-i,y] != " ")
